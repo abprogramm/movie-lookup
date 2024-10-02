@@ -22,7 +22,7 @@ Requests: To send HTTP requests and fetch data from the web.
 BeautifulSoup4: To parse the HTML content of movie review websites.
 lxml: (optional) Used by Beautiful Soup as a parser for faster performance.
 
-# You can install these packages using the following command:
+You can install these packages using the following command:
 ```bash
 pip install Flask requests beautifulsoup4 lxml
 ```
