@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ header }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif, Verdana, Geneva, Tahoma, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: rgb({{ rgb_val[0] }}, {{ rgb_val[1] }}, {{ rgb_val[2] }});
+            transition: background-color 0.3s ease;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .movie-header {
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: rgb({{ rgb_val[0]*1.8 }}, {{ rgb_val[1]*1.8 }}, {{ rgb_val[2]*1.8 }});
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .movie-header img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .movie-details {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .movie-details h2 {
+            margin-top: 0;
+            color: #000000;
+        }
+        .movie-details p {
+            margin-bottom: 10px;
+            color: #000000;
+        }
+        .box-office-detail h3 {
+            color: #1E90FF;
+        }
+        .movie-form {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .movie-form label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #000000;
+        }
+        .movie-form input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .movie-form button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .movie-form button:hover {
+            background-color: #0056b3;
+        }
+        @media (min-width: 600px) {
+            .movie-form input[type="text"] {
+                width: 60%;
+            }
+        }
+        .reviews {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .review-item {
+            flex: 1;
+            margin-right: 10px;
+        }
+        .review-item:last-child {
+            margin-right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="movie-header">
+            <h1>{{ header }}</h1>
+            {% if image %}
+            <img src="{{ image }}" alt="{{ header }} Poster">
+            {% endif %}
+        </div>
+
+        <div class="movie-details">
+            <h2>Information</h2>
+            {% for item in data %}
+                {% if item.title in ['Rating', 'Release Date', 'Duration'] %}
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.content }}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="movie-details">
+            <h2>Cast</h2>
+            {% for item in data %}
+                {% if item.title in ['Director', 'Writer', 'Actor #1', 'Actor #2', 'Actor #3'] %}
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.content }}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="movie-details">
+            <h2>Box Office</h2>
+            {% for item in data %}
+                {% if item.title in ['Domestic Gross 💵', 'International Gross 💶', 'Total Gross 💰'] %}
+                <div class="box-office-detail">
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ item.content }}</p>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="movie-details">
+            <h2>Reviews</h2>
+            <div class="reviews">
+                {% for item in data %}
+                    {% if item.title in ['Critics 🍅%', 'Audience 🍅%'] %}
+                    <div class="review-item">
+                        <h3>{{ item.title }}</h3>
+                        <p>{{ item.content }}</p>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <form action="/submit" method="post" class="movie-form">
+            <label for="input_data">Enter a movie:</label>
+            <input type="text" id="input_data" name="input_data">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
