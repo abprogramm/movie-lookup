@@ -13,3 +13,35 @@ Python: The primary programming language for backend logic and web scraping.
 Flask: A web framework used to handle routing, requests, and rendering of HTML templates.
 Beautiful Soup & Requests: Libraries used for web scraping to extract data from various movie websites.
 HTML/CSS: For front-end design and creating a responsive user interface.
+
+# Required Packages
+To run this application, the following Python packages are required:
+
+Flask: To handle HTTP requests and render HTML templates.
+Requests: To send HTTP requests and fetch data from the web.
+BeautifulSoup4: To parse the HTML content of movie review websites.
+lxml: (optional) Used by Beautiful Soup as a parser for faster performance.
+
+# You can install these packages using the following command:
+```bash
+pip install Flask requests beautifulsoup4 lxml
+```
+# Installation
+1. Clone the repository:
+```bash
+git clone https://github.com/abprogramm/movie-lookup.git
+```
+2. Navigate to the project directory:
+```bash
+cd moviescraper
+```
+3. Install the required packages:
+```bash
+pip install -r requirements.txt
+```
+4. Run the Flask application:
+```bash
+python app.py
+```
+# Usage
+Once the application is running, navigate to http://localhost:5000 in your web browser. Enter a movie title in the search bar, and the application will display detailed information sourced from multiple review websites.
