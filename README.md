@@ -33,13 +33,9 @@ git clone https://github.com/abprogramm/movie-lookup.git
 ```
 2. Navigate to the project directory:
 ```bash
-cd moviescraper
+cd movie-lookup
 ```
-3. Install the required packages:
-```bash
-pip install -r requirements.txt
-```
-4. Run the Flask application:
+3. Run the Flask application:
 ```bash
 python app.py
 ```
