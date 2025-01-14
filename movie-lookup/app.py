@@ -88,25 +88,28 @@ def submit():
         r = requests.get((list(names.values()))[(num-1)])
 
         soup = BeautifulSoup(r.text, 'html.parser')
-
-        realname = soup.find(slot='titleIntro').text.strip()
+        realname = soup.find('rt-text', slot='title').text.strip()
         image = soup.find('rt-img', slot='posterImage').get('src')
         rgb_values = get_rgb_values_from_url(image)
+        allvals = soup.find_all('rt-text', slot='metadataProp')
+        refinedvals = [val.text.strip() for val in allvals]
         try:
-            rating = soup.find('rt-text', slot='ratingsCode').text.strip()
+            if "PG" or "R" in refinedvals[0]:
+                rating = refinedvals[0]
         except:
             rating = 'NR'
         else:
             pass
-        releasedate = soup.find('rt-text', slot='releaseDate').text.strip()
+        print("RATING: " + rating)
+        releasedate = refinedvals[1]
         try:
-            duration = soup.find('rt-text', slot='duration').text.strip()
+            duration = refinedvals[2]
         except:
             duration = 'Unspecified'
         else:
             pass
-        critics = soup.find('rt-button', slot='criticsScore').text.strip()
-        audience = soup.find('rt-button', slot='audienceScore').text.strip()
+        critics = soup.find('rt-text', slot='criticsScore').text.strip()
+        audience = soup.find('rt-text', slot='audienceScore').text.strip()
         countcritics = soup.find('rt-link', slot='criticsReviews').text.strip()
         countaudience = soup.find('rt-link', slot='audienceReviews').text.strip()
 
